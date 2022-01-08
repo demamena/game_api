@@ -1,9 +1,11 @@
+from django.utils import timezone
 from rest_framework.response import Response
 from rest_framework.views import APIView
 
 from game.models import Game
 from game.serializer import GameSerializer
-from game.service import get_user_game_history, get_user_info, get_top_users, reset_score, change_name
+from game.service import get_user_game_history, get_user_info, get_top_users, reset_score, change_name, \
+    set_game_questions_answers
 
 
 class GameHistory(APIView):
@@ -36,7 +38,17 @@ class CreateGame(APIView):
         return Response({'success': True})
 
 
+class ChangeGame(APIView):
+    def put(self, request, game_id):
+        game = Game.objects.get(game__id=game_id, user=request.user)
+        game.game_end = timezone.now()
+        game.total_score = request.POST.get('total_score')
+        game.save()
+        set_game_questions_answers(game, request.POST.get('questions').split(','))
+        return Response({'success': True})
+
+
 class SetUsername(APIView):
     def put(self, request):
-        change_name(request.user)
+        change_name(request.user, request.POST.get('username'))
         return Response({'success': True})

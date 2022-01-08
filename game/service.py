@@ -1,4 +1,4 @@
-from game.models import User, Game
+from game.models import User, Game, GameQuestion
 from game.serializer import GameSerializer, UserSerializer
 
 
@@ -23,3 +23,16 @@ def reset_score(user: User) -> None:
 def change_name(user: User, username: str) -> None:
     user.username = username
     user.save()
+
+
+def set_game_questions_answers(game: Game, questions_list: list) -> None:
+    for question in questions_list:
+        question_id, is_correct = question.split(':')
+        is_correct = True if is_correct == 'true' else False
+        set_question_answer(game, question_id, is_correct)
+
+
+def set_question_answer(game: Game, question_id: int, is_correct: bool) -> None:
+    game_question = GameQuestion.objects.get(game=game, question__id=question_id)
+    game_question.is_answer_correct = is_correct
+    game_question.save()

@@ -38,3 +38,6 @@ class GameQuestion(Model):
     game = ForeignKey(Game, on_delete=CASCADE)
     question = ForeignKey(Question, on_delete=CASCADE)
     is_answer_correct = BooleanField(default=False)
+
+    class Meta:
+        unique_together = ['game', 'question']

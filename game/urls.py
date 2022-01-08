@@ -9,5 +9,5 @@ urlpatterns = [
     path('set-score/', ''),
     path('set-username/', views.SetUsername.as_view()),
     path('create-game/', ''),
-    path('change-game', ''),
+    path('change-game/<int:game_id>', views.ChangeGame.as_view()),
 ]
