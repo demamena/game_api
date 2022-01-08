@@ -18,3 +18,8 @@ def reset_score(user: User) -> None:
     user.score = 0
     Game.objects.filter(user=user).delete()
     user.save()
+
+
+def change_name(user: User, username: str) -> None:
+    user.username = username
+    user.save()
