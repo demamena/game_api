@@ -30,7 +30,7 @@ class User(AbstractUser):
 class Game(Model):
     user = ForeignKey(User, on_delete=CASCADE)
     game_start = DateTimeField(default=timezone.now)
-    game_end = DateTimeField(default=timezone.now)
+    game_end = DateTimeField(blank=True, null=True)
     total_score = IntegerField(default=0)
 
 

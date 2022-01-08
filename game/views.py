@@ -28,3 +28,9 @@ class ResetScore(APIView):
         request.user.save()
         return Response({'success': True})
 
+
+class CreateGame(APIView):
+    def post(self, request):
+        game = Game.objects.create(user=request.user)
+        return Response({'success': True})
+

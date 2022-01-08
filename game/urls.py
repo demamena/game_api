@@ -9,5 +9,5 @@ urlpatterns = [
     path('set-score/', ''),
     path('set-username/', ''),
     path('create-game/', ''),
-    path('create-game/', ''),
+    path('change-game', ''),
 ]
