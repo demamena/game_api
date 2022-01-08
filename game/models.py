@@ -7,8 +7,8 @@ from django.utils import timezone
 class Question(Model):
     name = CharField(max_length=255)
     question = TextField(max_length=5000)
-    preview = ImageField()
-    rating = DecimalField(default=0, decimal_places=2, max_length=3)
+    preview = FileField()
+    rating = DecimalField(default=0, decimal_places=2, max_digits=3)
     add_date = DateTimeField(default=timezone.now)
     is_hidden = BooleanField(default=True)
     video = FileField()
@@ -21,16 +21,19 @@ class Answer(Model):
 
 
 class User(AbstractUser):
+    nickname = CharField(max_length=100)
     score = IntegerField(default=0)
     games_count = IntegerField(default=0)
+    referral_link = CharField(max_length=100)
 
 
 class Game(Model):
     game_start = DateTimeField(default=timezone.now)
     game_end = DateTimeField(default=timezone.now)
+    total_score = IntegerField(default=0)
 
 
 class GameQuestion(Model):
-    game = ForeignKey(Model, on_delete=CASCADE)
+    game = ForeignKey(Game, on_delete=CASCADE)
     question = ForeignKey(Question, on_delete=CASCADE)
     is_answer_correct = BooleanField(default=False)
