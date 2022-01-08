@@ -13,4 +13,4 @@ class GameMiddleware:
         return Response({
             'success': False,
             'message': str(exception),
-        })
+        }, status=417)

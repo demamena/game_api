@@ -29,5 +29,6 @@ class ResetScore(APIView):
 class CreateGame(APIView):
     def post(self, request):
         game = Game.objects.create(user=request.user)
+        for i in range(0, request.POST.get('questions_count')):
+            # TODO: создать вопрос GameQuestion рандомный без повторений
         return Response({'success': True})
-

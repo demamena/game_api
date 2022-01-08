@@ -14,7 +14,7 @@ def get_top_users() -> dict:
     return UserSerializer(User.objects.all().order_by('score')[:50]).data
 
 
-def reset_score(user: User) -> dict:
+def reset_score(user: User) -> None:
     user.score = 0
     Game.objects.filter(user=user).delete()
     user.save()
