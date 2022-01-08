@@ -1,5 +1,7 @@
-from game.models import User, Game
-from game.serializer import GameSerializer, UserSerializer
+import random
+
+from game.models import User, Game, Question
+from game.serializer import GameSerializer, UserSerializer, QuestionSerializer
 
 
 def get_user_game_history(user: User) -> dict:
@@ -23,3 +25,14 @@ def reset_score(user: User) -> None:
 def change_name(user: User, username: str) -> None:
     user.username = username
     user.save()
+
+
+def rand_question(game: Game, questions_count: int) -> list:
+    question_shuffle = list(range(Question.objects.filter(is_hidden=False)))
+    random.shuffle(question_shuffle)
+    questions = []
+    for question in question_shuffle:
+        if len(questions) >= questions_count:
+            break
+        questions.append(QuestionSerializer(question).data)
+    return questions
