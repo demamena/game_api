@@ -1,5 +1,5 @@
 from django.db.models import Model, TextField, ImageField, DecimalField, DateTimeField, BooleanField, CharField, \
-    FileField, IntegerField
+    FileField
 from django.utils import timezone
 
 
@@ -18,8 +18,4 @@ class Answer(Model):
     answer = TextField(max_length=5000)
     is_correct = BooleanField(default=False)
 
-
-class Statistics(Model):
-    game_count = IntegerField()
-    score = IntegerField()
 
