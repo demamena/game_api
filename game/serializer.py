@@ -1,7 +1,7 @@
 from rest_framework.fields import SerializerMethodField
 from rest_framework.serializers import ModelSerializer
 
-from game.models import Game, GameQuestion, Answer, Question
+from game.models import Game, GameQuestion, Answer, Question, User
 
 
 class AnswerSerializer(ModelSerializer):
@@ -35,3 +35,11 @@ class GameQuestionSerializer(ModelSerializer):
     class Meta:
         model = GameQuestion
         exclude = ['game']
+
+
+class UserSerializer(ModelSerializer):
+
+    class Meta:
+        model = User
+        fields = '__all__'
+

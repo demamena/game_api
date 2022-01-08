@@ -1,6 +1,11 @@
 from game.models import User, Game
-from game.serializer import GameSerializer
+from game.serializer import GameSerializer, UserSerializer
 
 
-def get_user_games_history(user: User) -> dict:
-    return GameSerializer(Game.objects.filter(user=user)).data
+def get_user_game_history(user: User) -> dict:
+    return GameSerializer(Game.objects.filter(user=user), many=True).data
+
+
+def get_user_info(user: User) -> dict:
+    return UserSerializer(user).data
+
