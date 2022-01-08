@@ -3,7 +3,7 @@ from rest_framework.views import APIView
 
 from game.models import Game
 from game.serializer import GameSerializer
-from game.service import get_user_game_history, get_user_info, get_top_users
+from game.service import get_user_game_history, get_user_info, get_top_users, reset_score
 
 
 class GameHistory(APIView):
@@ -23,5 +23,5 @@ class GetTopUsers(APIView):
 
 class ResetScore(APIView):
     def post(self, request):
-        return Response({'success': True})
+        return Response(reset_score(request.user))
 
