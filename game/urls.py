@@ -2,11 +2,12 @@ from django.urls import path
 import views
 
 urlpatterns = [
-    path('get-user/<user_id>', ''),
-    path('get-top', ''),
-    path('reset-score/<user_id>', ''),
-    path('game-history/<user_id>', ''),
-    path('set-score/<user_id>', ''),
-    path('set-username/<user_id>', ''),
-
+    path('user-info/', views.UserInfo.as_view()),
+    path('get-top', views.GetTopUsers.as_view()),
+    path('reset-score/', ''),
+    path('game-history/', views.GameHistory.as_view()),
+    path('set-score/', ''),
+    path('set-username/', ''),
+    path('create-game/', ''),
+    path('create-game/', ''),
 ]
