@@ -3,10 +3,12 @@ from rest_framework.response import Response
 from rest_framework.views import APIView
 
 from game.models import Game
-from game.service import get_user_game_history, get_user_info, get_top_users, reset_score, change_name, rand_question, \
-    set_game_questions_answers
+from game.serializer import GameSerializer
+from game.service import get_user_game_history, get_user_info, get_top_users, reset_score, change_name, \
+    set_game_random_questions, set_game_questions_answers, get_game_info
 
 
+# region Users
 class GameHistory(APIView):
     def get(self, request):
         return Response(get_user_game_history(request.user))
@@ -28,11 +30,20 @@ class ResetScore(APIView):
         return Response({'success': True})
 
 
+class SetUsername(APIView):
+    def put(self, request):
+        change_name(request.user, request.POST.get('username'))
+        return Response({'success': True})
+
+
+# endregion
+
+# region Game
 class CreateGame(APIView):
     def post(self, request):
         game = Game.objects.create(user=request.user)
-        rand_question(game, request.POST.get('guestion_count'))
-        return Response({'success': True})
+        set_game_random_questions(game, request.POST.get('question_count'))
+        return Response(GameSerializer(game).data)
 
 
 class ChangeGame(APIView):
@@ -45,7 +56,8 @@ class ChangeGame(APIView):
         return Response({'success': True})
 
 
-class SetUsername(APIView):
-    def put(self, request):
-        change_name(request.user, request.POST.get('username'))
-        return Response({'success': True})
+class GameInfo(APIView):
+    def post(self, request, game_id):
+        return Response(get_game_info(Game.objects.get(id=game_id)))
+
+# endregion

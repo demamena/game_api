@@ -41,12 +41,15 @@ def set_question_answer(game: Game, question_id: int, is_correct: bool) -> None:
     game_question.save()
 
 
-def rand_question(game: Game, questions_count: int) -> list:
+def set_game_random_questions(game: Game, questions_count: int) -> None:
     question_shuffle = list(range(Question.objects.filter(is_hidden=False)))
     random.shuffle(question_shuffle)
     questions = []
     for question in question_shuffle:
         if len(questions) >= questions_count:
             break
-        questions.append(QuestionSerializer(question).data)
-    return questions
+        GameQuestion.objects.create(game=game, question=question)
+
+
+def get_game_info(game: Game) -> dict:
+    return GameSerializer(game).data
