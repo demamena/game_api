@@ -21,7 +21,7 @@ class Answer(Model):
 
 
 class User(AbstractUser):
-    username = CharField(max_length=100)
+    nickname = CharField(max_length=100)
     score = IntegerField(default=0)
     games_count = IntegerField(default=0)
     referral_link = CharField(max_length=100)

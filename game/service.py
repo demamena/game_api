@@ -23,8 +23,8 @@ def reset_score(user: User) -> None:
     user.save()
 
 
-def change_name(user: User, username: str) -> None:
-    user.username = username
+def change_name(user: User, nickname: str) -> None:
+    user.nickname = nickname
     user.save()
 
 

@@ -32,7 +32,7 @@ class ResetScore(APIView):
 
 class SetUsername(APIView):
     def put(self, request):
-        change_name(request.user, request.POST.get('username'))
+        change_name(request.user, request.POST.get('nickname'))
         return Response({'success': True})
 
 
