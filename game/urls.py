@@ -8,6 +8,6 @@ urlpatterns = [
     path('game-history/', views.GameHistory.as_view()),
     path('set-score/', ''),
     path('set-username/', views.SetUsername.as_view()),
-    path('create-game/', ''),
+    path('create-game/', views.CreateGame.as_view()),
     path('change-game', ''),
 ]
