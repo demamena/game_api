@@ -23,9 +23,6 @@ class GetTopUsers(APIView):
 
 class ResetScore(APIView):
     def post(self, request):
-        request.user.score = 0
-        Game.objects.filter(user=request.user).delete()
-        request.user.save()
         return Response({'success': True})
 
 
