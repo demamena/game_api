@@ -44,11 +44,12 @@ def set_question_answer(game: Game, question_id: int, is_correct: bool) -> None:
 def set_game_random_questions(game: Game, questions_count: int) -> None:
     question_shuffle = list(range(Question.objects.filter(is_hidden=False)))
     random.shuffle(question_shuffle)
-    questions = []
+    current_questions = 0
     for question in question_shuffle:
-        if len(questions) >= questions_count:
+        if current_questions >= questions_count:
             break
         GameQuestion.objects.create(game=game, question=question)
+        current_questions += 1
 
 
 def get_game_info(game: Game) -> dict:
