@@ -1,5 +1,8 @@
 from game.models import User, Game, GameQuestion
-from game.serializer import GameSerializer, UserSerializer
+import random
+
+from game.models import User, Game, Question
+from game.serializer import GameSerializer, UserSerializer, QuestionSerializer
 
 
 def get_user_game_history(user: User) -> dict:
@@ -36,3 +39,14 @@ def set_question_answer(game: Game, question_id: int, is_correct: bool) -> None:
     game_question = GameQuestion.objects.get(game=game, question__id=question_id)
     game_question.is_answer_correct = is_correct
     game_question.save()
+
+
+def rand_question(game: Game, questions_count: int) -> list:
+    question_shuffle = list(range(Question.objects.filter(is_hidden=False)))
+    random.shuffle(question_shuffle)
+    questions = []
+    for question in question_shuffle:
+        if len(questions) >= questions_count:
+            break
+        questions.append(QuestionSerializer(question).data)
+    return questions
