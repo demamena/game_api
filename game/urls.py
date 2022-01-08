@@ -7,7 +7,7 @@ urlpatterns = [
     path('reset-score/', views.ResetScore.as_view()),
     path('game-history/', views.GameHistory.as_view()),
     path('set-score/', ''),
-    path('set-username/', ''),
+    path('set-username/', views.SetUsername.as_view()),
     path('create-game/', ''),
     path('change-game', ''),
 ]
